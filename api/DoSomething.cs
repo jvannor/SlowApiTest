@@ -12,16 +12,25 @@ namespace Company.Function
 {
     public static class DoSomething
     {
-        [FunctionName("DoSomething")]
-        public static IActionResult Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+        [FunctionName("DoSomethingSlow")]
+        public static IActionResult RunSlow(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "DoSomethingSlow")] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("Do Something received a request.");
+            log.LogInformation("Do Something Slow received a request.");
             Thread.Sleep(60 * 1000);
-
             string responseMessage = "Thanks for noticing me.";
             return new OkObjectResult(responseMessage);
         }
+
+        [FunctionName("DoSomethingFast")]
+        public static IActionResult RunFast(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "DoSomethingFast")] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("Do Something Fast received a request.");
+            string responseMessage = "Well, hello there!";
+            return new OkObjectResult(responseMessage);
+        }  
     }
 }

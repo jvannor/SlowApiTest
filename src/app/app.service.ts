@@ -7,12 +7,20 @@ import { catchError, timeout } from "rxjs/operators";
     providedIn: 'root' }
 )
 export class AppService {
-    private url: string = 'api/dosomething';
+    private slowUrl: string = 'api/dosomethingslow';
+    private fastUrl: string = 'api/dosomethingfast';
 
     constructor (private http: HttpClient) {}
 
-    doSomething(): Observable<string> {
-        return this.http.get(this.url, { responseType: 'text' }).pipe(
+    doSomethingSlow(): Observable<string> {
+        return this.http.get(this.slowUrl, { responseType: 'text' }).pipe(
+            timeout(120000),
+            catchError(this.handleError)
+        );
+    }
+
+    doSomethingFast(): Observable<any> {
+        return this.http.get(this.fastUrl, { responseType: 'text' }).pipe(
             timeout(120000),
             catchError(this.handleError)
         );

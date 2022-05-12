@@ -8,16 +8,20 @@ import { AppService } from './app.service';
 })
 export class AppComponent {
   result: string = "";
-  sub!: Subscription;
 
   constructor(private appService: AppService) { }
 
-  onDoSomethingClicked() : void {
-    this.sub = this.appService.doSomething().subscribe({
-      next: result => {
-        this.result = result;
-      },
+  onDoSomethingSlowClicked() : void {
+    this.appService.doSomethingSlow().subscribe({
+      next: result => this.result = result,
       error: err => this.result = err
-    })
+    });
+  }
+
+  onDoSomethingFastClicked() : void {
+    this.appService.doSomethingFast().subscribe({
+      next: result => this.result = result,
+      error: err => this.result = err
+    });
   }
 }

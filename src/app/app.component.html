@@ -1,9 +1,7 @@
 <div>
     <h1>Welcome</h1>
-    <p>
-        <button (click)="onDoSomethingClicked()">Do Something!</button>
-    </p>
-    <p>
-        <textarea rows="8" cols="24">{{result}}</textarea>
-    </p>
+    <p><button (click)="onDoSomethingSlowClicked()">Do Something Slow!</button></p>
+    <p><button (click)="onDoSomethingFastClicked()">Do Something Fast!</button></p>
+    <p>Results:</p>
+    <p><textarea name="ResultTextArea" cols="24" rows="8" [(ngModel)]="result"></textarea></p> 
 </div>
